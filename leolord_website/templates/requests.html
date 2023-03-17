@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Requests</h1>
+  <form method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" name="subject" required>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+  <h2>Inbox</h2>
+  <ul id="inbox">
+    {% for msg in messages %}
+      <li>
+        <strong>{{ msg.name }} - {{ msg.subject }}</strong>
+        <p>{{ msg.message }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,184 @@
+body {
+    font-family: 'Courier New', monospace;
+    color: lime;
+    background-color: black;
+  }
+  
+  .menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu a {
+    color: lime;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  
+  .menu a:hover {
+    text-decoration: underline;
+  }
+  
+  .content {
+    margin: 20px;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  form input, form textarea {
+    width: 100%;
+    background-color: black;
+    border: 1px solid lime;
+    color: lime;
+    padding: 5px;
+  }
+  
+  form button {
+    background-color: lime;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  form button:hover {
+    background-color: rgba(0, 255, 0, 0.8);
+  }
+  
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .home-content {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+  }
+
+  .about-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border: 1px solid lime;
+    box-shadow: 0 0 10px lime;
+  }
+  
+  
+  .about-content h1 {
+    font-size: 2.5rem;
+    text-shadow: 0 0 5px lime;
+  }
+  
+  .about-content p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-indent: 2rem;
+  }
+  
+  #background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+  .mute-button {
+    position: fixed;
+    right: 5%;
+    bottom: 20%;
+    width: 50px;
+    height: 50px;
+    border: 2px solid lime;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: lime;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px lime;
+  }
+  
+  .mute-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .modal-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: auto;
+    margin-top: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .modal-content img,
+  .modal-content video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .media-container {
+    display: flex;
+}
+
+.media-list {
+    width: 30%;
+    overflow-y: auto;
+}
+
+.media-item {
+    cursor: pointer;
+    padding: 5px;
+}
+
+.media-item:hover {
+    background-color: #f0f0f0;
+}
+
+.media-player {
+    width: 70%;
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.media-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

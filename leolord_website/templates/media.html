@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <h1>Media Sharing Page</h1>
+    <div class="media-container">
+        <div class="media-list">
+            <ul>
+                {% for file in media_files %}
+                    <div class="media-item"><a href="#" onclick="updatePlayer('{{ file }}')">{{ file }}</a></div>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="player">
+            <img id="image" src="" alt="" style="display:none; max-width: 100%;">
+            <video id="video" controls style="display:none; max-width: 100%;">
+                <source id="video-source" src="" type="">
+            </video>
+        </div>
+    </div>
+    
+</body>
+<script>
+    function updatePlayer(file) {
+    const videoExtensions = ['mp4', 'webm', 'ogg'];
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+    const extension = file.split('.').pop().toLowerCase();
+    const url = `{{ url_for('static', filename='media') }}/${file}`;
+
+    if (videoExtensions.includes(extension)) {
+        document.getElementById('image').style.display = 'none';
+        const video = document.getElementById('video');
+        video.style.display = 'block';
+        document.getElementById('video-source').src = url;
+        document.getElementById('video-source').type = `video/${extension}`;
+        video.load();
+    } else if (imageExtensions.includes(extension)) {
+        document.getElementById('video').style.display = 'none';
+        const image = document.getElementById('image');
+        image.src = url;
+        image.style.display = 'block';
+    }
+}
+  window.onclick = function (event) {
+    const modal = document.getElementById("media-modal");
+    if (event.target === modal)
+      modal.style.display = "none";
+  }
+</script>
+{% endblock %}

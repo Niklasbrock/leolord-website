@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="home-content">
+    <h1>Leolord</h1>
+    <form method="POST">
+        <label for="videoUrl">Video URL:</label>
+        <input type="text" id="videoUrl" name="videoUrl" value="{{ video_url }}">
+        <button type="submit">Set Video</button>
+    </form>
+    <div id="background-video"></div>
+    <button id="mute-button" class="mute-button" onclick="toggleMute()">
+        Mute
+    </button>
+</div>
+<script>
+    const videoUrl = "{{ video_url }}";
+</script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="{{ url_for('static', filename='js/yt-player.js') }}"></script>
+{% endblock %}
