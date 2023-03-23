@@ -16,36 +16,51 @@
             <video id="video" controls style="display:none; max-width: 100%;">
                 <source id="video-source" src="" type="">
             </video>
+            <audio id="audio" controls style="display:none; max-width: 100%;">
+                <source id="audio-source" src="" type="">
+            </audio>
         </div>
     </div>
     
 </body>
 <script>
-    function updatePlayer(file) {
-    const videoExtensions = ['mp4', 'webm', 'ogg'];
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-    const extension = file.split('.').pop().toLowerCase();
-    const url = `{{ url_for('static', filename='media') }}/${file}`;
-
-    if (videoExtensions.includes(extension)) {
+    function hideAllMedia() {
         document.getElementById('image').style.display = 'none';
-        const video = document.getElementById('video');
-        video.style.display = 'block';
-        document.getElementById('video-source').src = url;
-        document.getElementById('video-source').type = `video/${extension}`;
-        video.load();
-    } else if (imageExtensions.includes(extension)) {
         document.getElementById('video').style.display = 'none';
-        const image = document.getElementById('image');
-        image.src = url;
-        image.style.display = 'block';
+        document.getElementById('audio').style.display = 'none';
     }
+    function updatePlayer(file) {
+        hideAllMedia();
+        const videoExtensions = ['mp4', 'webm', 'ogg'];
+        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        const audioExtensions = ['mp3', 'wav', 'wave'];
+
+        const extension = file.split('.').pop().toLowerCase();
+        const url = `{{ url_for('static', filename='media') }}/${file}`;
+
+        if (videoExtensions.includes(extension)) {
+            document.getElementById('image').style.display = 'none';
+            const video = document.getElementById('video');
+            video.style.display = 'block';
+            document.getElementById('video-source').src = url;
+            document.getElementById('video-source').type = `video/${extension}`;
+            video.load();
+            video.play();
+        } else if (imageExtensions.includes(extension)) {
+            document.getElementById('video').style.display = 'none';
+            const image = document.getElementById('image');
+            image.src = url;
+            image.style.display = 'block';
+        } else if (audioExtensions.includes(extension)) {
+            document.getElementById('audio').style.display = 'none';
+            const audio = document.getElementById('audio');
+            audio.style.display = 'block';
+            document.getElementById('audio-source').src = url;
+            document.getElementById('audio-source').type = `audio/${extension}`;
+            audio.load();
+            audio.play();
+        } 
 }
-  window.onclick = function (event) {
-    const modal = document.getElementById("media-modal");
-    if (event.target === modal)
-      modal.style.display = "none";
-  }
+
 </script>
 {% endblock %}
