@@ -3,6 +3,7 @@ import os
 
 app = Flask(__name__)
 
+## HOME PAGE ##
 @app.route("/", methods=["GET", "POST"])
 def home():
     global current_video_url
@@ -12,6 +13,19 @@ def home():
         return redirect(url_for("home"))
     return render_template("home.html", video_url=current_video_url)
 
+# Initialize the playback time with 0
+current_playback_time = 0
+
+@app.route("/get_playback_info", methods=["GET", "POST"])
+def get_playback_info():
+    global current_playback_time
+    if request.method == "POST":
+        # Update the playback time from the client's data
+        current_playback_time = float(request.form.get("playback_time"))
+        return "OK", 200
+    return jsonify({"playback_time": current_playback_time})
+
+## REQUESTS PAGE ##
 # Initialize the messages list
 messages = []
 @app.route("/requests", methods=["GET", "POST"])
@@ -26,18 +40,18 @@ def requests():
         return redirect(url_for("requests"))
     return render_template("requests.html", messages=messages)
 
-
+## ABOUT PAGE ##
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+## MEDIA PAGE ##
 # Initialize the video URL with an empty string
 current_video_url = ""
 @app.route("/get_current_video_url", methods=["GET"])
 def get_current_video_url():
     global current_video_url
     return jsonify({"video_url": current_video_url})
-
 
 media_folder = 'media'
 @app.route('/media')
