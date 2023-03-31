@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="home-content">
+  <h1 class="autohide">Leolord</h1>
+  <form method="POST" class="autohide">
+      <label for="video-url">Video URL:</label>
+      <input type="text" id="video-url" name="videoUrl" value="{{ video_url }}">
+      <button onclick="updateVideo()">Set Video</button>
+  </form>
+  <div id="background-video"></div>
+  <button id="mute-button" class="mute-button autohide" onclick="toggleMute()">Mute/Unmute</button>
+</div>
+<script src="static/js/yt-player.js"></script>
+{% endblock %}

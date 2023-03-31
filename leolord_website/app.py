@@ -1,29 +1,33 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
-import os
+from flask_socketio import SocketIO, emit
+import os, time
 
 app = Flask(__name__)
+socketio = SocketIO(app)
+app.config['SECRET_KEY'] = 'your-secret-key'
+
+current_video_id = None
+current_playback_time = 0
 
 ## HOME PAGE ##
 @app.route("/", methods=["GET", "POST"])
-def home():
-    global current_video_url
-    if request.method == "POST":
-        # Update the video URL when a user submits a new one
-        current_video_url = request.form.get("videoUrl")
-        return redirect(url_for("home"))
-    return render_template("home.html", video_url=current_video_url)
+def index():
+    return render_template('index.html')
 
-# Initialize the playback time with 0
-current_playback_time = 0
+@socketio.on('client_connected')
+def client_connected():
+    global current_video_id, current_playback_time
+    if current_video_id is not None:
+        emit('update_video', {'video_id': current_video_id, 'playback_time': current_playback_time})
 
-@app.route("/get_playback_info", methods=["GET", "POST"])
-def get_playback_info():
-    global current_playback_time
-    if request.method == "POST":
-        # Update the playback time from the client's data
-        current_playback_time = float(request.form.get("playback_time"))
-        return "OK", 200
-    return jsonify({"playback_time": current_playback_time})
+@socketio.on('update_video')
+def update_video(data):
+    global current_video_id, current_playback_time
+    video_id = data['video_id']
+    current_video_id = video_id
+    current_playback_time = data['playback_time']
+    emit('update_video', {'video_id': video_id, 'playback_time': current_playback_time}, broadcast=True)
+
 
 ## REQUESTS PAGE ##
 # Initialize the messages list
@@ -60,6 +64,6 @@ def media():
     media_files = os.listdir(media_folder)
     return render_template('media.html', media_files=media_files)
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app)
+    # app.run(debug=True)

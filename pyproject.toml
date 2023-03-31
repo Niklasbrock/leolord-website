@@ -10,6 +10,8 @@ packages = [{include = "leolord_website"}]
 python = "^3.11"
 flask = "^2.2.3"
 gunicorn = "^20.1.0"
+flask-socketio = "^5.3.3"
+simple-websocket = "^0.9.0"
 
 
 [build-system]
